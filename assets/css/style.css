@@ -1,0 +1,43 @@
+
+    body{
+        background-image:url('../images/background_img1.jpg');
+        background-size:cover;
+    }
+    .bigbox {
+        background: linear-gradient(#FF8C00,orange,gold,#FFDF00,#CCCC00,#FF6500);
+        margin-top: 2%;
+        margin-bottom: 2%;
+        width: 80%;
+        height: 95vh;
+    }
+    .ansbutton {
+        margin: 2%;
+        background-color: transparent;
+    }
+    .mgtop5{
+        margin-top: 5%;
+        padding-top: 5%;
+    }
+    .mgtop2{
+        margin-top: 2%;
+        padding-top: 2%;
+    }
+    .titleFont {
+        font-family:'Luckiest Guy', 'Serif', cursive;
+        font-size: 500%;
+    }
+    .contentFont {
+        font-family:'Acme', 'Serif', cursive;
+        font-size: 200%;
+        font-weight: bolder;
+    }
+    .contentSmallFont {
+        font-family:'Acme', 'Serif', cursive;
+        font-size: 150%;
+    }
+    #idButton {
+        background:#696969;
+        box-shadow: 4px 4px;
+        margin-bottom: 2%;
+    }
+
