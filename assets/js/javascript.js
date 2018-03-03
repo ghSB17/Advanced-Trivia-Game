@@ -1,11 +1,11 @@
 $("document").ready( function(){
 
 
-const objQuestionsBank = [{qtext:"Which of these locations is a huge protected wilderness area in Southern New Jersey?", anschoice1:"Pinelands", anschoice2:"HighPoint",anschoice3:"Union",anschoice4:"Manasquan",anschoice5:"None of the above", correctchoice:"anschoice1"},
-{qtext:"Which animal is featured on New Jersey's state seal", anschoice1:"Buffalo", anschoice2:"Lion", anschoice3:"Horse", anschoice4:"Eagle", anschoice5:"Panther", correctchoice:"anschoice3"}, 
-{qtext:"New Jersey is the third highest harvester of what produce?", anschoice1:"cranberries", anschoice2:"blueberries", anschoice3:"strawberries", anschoice4:"apples", anschoice5:"broccoli", correctchoice:"anschoice1"},
-{qtext:"Which is the third largest city in the Garden State?",anschoice1:"Jersey City", anschoice2:"Princeton", anschoice3:"Ocean City", anschoice4:"Paterson", anschoice5:"Cherry Hill", correctchoice:"anschoice4"},
-{qtext:"Which NJ town is home of the first drive-in movie theatre?", anschoice1:"Keansburg", anschoice2:"Camden", anschoice3:"Englishtown", anschoice4:"Hamilton", anschoice5:"Asbury Park", correctchoice:"anschoice2"} ]
+const objQuestionsBank = [{qtext:"Which of these locations is a huge protected wilderness area in Southern New Jersey?", anschoice1:"Pinelands", anschoice2:"HighPoint",anschoice3:"Union",anschoice4:"Manasquan",anschoice5:"None of the above", correctchoice:"anschoice1",urlStr:"https://media.giphy.com/media/HQjLc75JxfaBG/giphy.gif"},
+{qtext:"Which animal is featured on New Jersey's state seal", anschoice1:"Buffalo", anschoice2:"Lion", anschoice3:"Horse", anschoice4:"Eagle", anschoice5:"Panther", correctchoice:"anschoice3",urlStr:"https://media.giphy.com/media/7NHM19prcKWic/giphy.gif"}, 
+{qtext:"New Jersey is the third highest harvester of what produce?", anschoice1:"cranberries", anschoice2:"blueberries", anschoice3:"strawberries", anschoice4:"apples", anschoice5:"broccoli", correctchoice:"anschoice1",urlStr:"https://media.giphy.com/media/3ohs7SdYcUPVWQJcTC/giphy.gif"},
+{qtext:"Which is the third largest city in the Garden State?",anschoice1:"Jersey City", anschoice2:"Princeton", anschoice3:"Ocean City", anschoice4:"Paterson", anschoice5:"Cherry Hill", correctchoice:"anschoice4",urlStr:"../images/paterson.jpg"},
+{qtext:"Which NJ town is home of the first drive-in movie theatre?", anschoice1:"Keansburg", anschoice2:"Camden", anschoice3:"Englishtown", anschoice4:"Hamilton", anschoice5:"Asbury Park", correctchoice:"anschoice2",urlStr:"https://media.giphy.com/media/l3vRaHsHwlN8JCiKQ/giphy.gif"} ]
 
 var QuestionNumber=0;
 var counterQuestion = 30;
@@ -19,8 +19,11 @@ var incorrectAns=0;
 var ansValueClicked="";
 var ansClicked=false;
 var QorA =true;
+var urlString="";
+var tempImg='';
 
 function InitializeScreen() {
+    urlString="";
     QuestionNumber=0;
     ansChoice="";
     clearInterval(timeoutQuestion);
@@ -77,7 +80,10 @@ function display(index) {
             } else if( key==="correctchoice") {
                 console.log(objQuestionsBank[index][value]);
                 ansChoice=objQuestionsBank[index][value];
+                urlString=objQuestionsBank[index]["urlStr"];
                 //alert(ansChoice);
+            } else if(key==='urlStr') {
+                htmlText+="";
             } else {
                 htmlText+="<button type='button' class='btn btn-lg ansButton'>"+value+"</button><br>";
             }
@@ -125,11 +131,12 @@ function checkAnswers() {
             incorrectAns++;
             htmlText="<p>You missed!!</p>" +
                 "<p>Correct Answer: "+ansChoice;
+            
         } else if( ansClicked===true) {
             ansClicked=false;
             if(ansChoice===ansValueClicked) {
                 htmlText="<p>Correct!</p>" +
-                "<p>Correct Answer: "+ansChoice;
+                "<p>"+ansChoice;
                 correctAns++;
             }
             else {
@@ -139,7 +146,10 @@ function checkAnswers() {
         }
         QuestionNumber++;
         QorA=false;
+        tempImg=$("<img>");
+        tempImg.attr("src",urlString);
         $("#idTrivia").html(htmlText);
+        $("#idTrivia").append(tempImg);
         timeoutAnswer=setInterval(displayTimer,1000);
     } else {
         display(QuestionNumber);
