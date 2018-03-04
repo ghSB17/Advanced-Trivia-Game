@@ -16,7 +16,22 @@
 
     </div>
     <script>
+        function aj() {
+        var str="http://api.openweathermap.org/data/2.5/weather?q=bujumbura&apikey=aa593b1dc09822097517dbb570da06ab"
+        $.ajax({
+            url:str, 
+            method:"GET"}).then(function(resp) {
+                console.log("here"+resp);
+                var x = parseFloat(resp.main.temp);
+                var F = 1.8*(x-273)+32;
+                console.log("Temp:"+resp.main.temp);
+                console.log("Humidity:"+resp.main.humidity);
+                console.log("wind:"+resp.wind.speed);
+                console.log("degrees F:"+F);
+
+            });
             
+        }
             function dosomething() {
                 console.log("here");
                 var urlStr="https://media.giphy.com/media/3ohs7SdYcUPVWQJcTC/giphy.gif";
@@ -27,6 +42,7 @@
                 console.log($("#idDisplay"));
             }
             dosomething();
+            aj();
         </script>
 </body>
 </html>
