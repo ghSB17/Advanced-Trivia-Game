@@ -9,7 +9,7 @@ const objQuestionsBank = [{qtext:"Which of these locations is a huge protected w
 
 var QuestionNumber=0;
 var counterQuestion = 30;
-var counterAnswer=6;
+var counterAnswer=5;
 var ansChoice;
 var timeoutQuestion;
 var timeoutAnswer;
@@ -18,7 +18,7 @@ var missedQuestions=0;
 var incorrectAns=0;
 var ansValueClicked="";
 var ansClicked=false;
-var QorA =true;
+var Question =true;
 var urlString="";
 var tempImg='';
 
@@ -28,7 +28,7 @@ function InitializeScreen() {
     ansChoice="";
     clearInterval(timeoutQuestion);
     clearInterval(timeoutAnswer);
-    QorA=true;
+    Question=true;
     ansClicked=false;
     correctAns=0;
     incorrectAns=0;
@@ -38,20 +38,20 @@ function InitializeScreen() {
 }
 
 function displayTimer() {
-    var counterC;    
+    var counterC=0;    
     
-    if(QorA===true)
+    if(Question===true)
         counterC=counterQuestion--;
     else 
         counterC=counterAnswer--;
     if( counterC > 0 ) {
         $("#idTimer").html("Time Remaining  -  "+ checkdisplay(counterC));
-    } else if(counterC===0 && QorA===true) {
+    } else if(counterC===0 && Question===true) {
         clearInterval(timeoutQuestion);
         checkAnswers();
-    } else if(counterC===0 && QorA===false) {
+    } else if(counterC===0 && Question===false) {
         clearInterval(timeoutAnswer);
-        QorA=false;
+        Question=false;
         checkAnswers();
     }
 
@@ -70,7 +70,7 @@ function display(index) {
         $(".bigbox").css({"height":"100%"});
         counterAnswer=6;
         counterQuestion=30;
-        QorA=true;
+        Question=true;
         var htmlText="";
         $("#idButton").hide();
         $("#idTimer").html("Time Remaining  -  30") ;
@@ -112,9 +112,9 @@ $('#idTrivia').on("mouseleave", ".ansButton", function() {
 });
 
 $('#idTrivia').on("click", ".ansButton", function() {
+    clearInterval(timeoutQuestion);
     $("#idTrivia .ansButton").css({"background":"#696969"});
     console.log("here");
-    clearInterval(timeoutQuestion);
     ansClicked=true;
     console.log(this);
     ansValueClicked=$(this).text();
@@ -125,7 +125,8 @@ function checkAnswers() {
     console.log("here");
     var htmlText="";
    
-    if( QorA ===true ){
+    if( Question ===true ){
+        timeoutAnswer=setInterval(displayTimer,1000);
         if( ansClicked===false){
             missedQuestions++;
             incorrectAns++;
@@ -145,12 +146,12 @@ function checkAnswers() {
             }
         }
         QuestionNumber++;
-        QorA=false;
+        Question=false;
         tempImg=$("<img>");
         tempImg.attr("src",urlString);
         $("#idTrivia").html(htmlText);
         $("#idTrivia").append(tempImg);
-        timeoutAnswer=setInterval(displayTimer,1000);
+        
     } else {
         display(QuestionNumber);
     }
